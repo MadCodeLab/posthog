@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+cleanup() {
+    echo "Signaling workers to initialize graceful shutdown..."
+    if kill -0 "$worker1_pid" >/dev/null 2>&1; then
+        kill -SIGTERM "$worker1_pid" 2>/dev/null || true
+    fi
+    if kill -0 "$worker2_pid" >/dev/null 2>&1; then
+        kill -SIGTERM "$worker2_pid" 2>/dev/null || true
+    fi
+    echo "Workers signaled for graceful shutdown"
+}
+
+trap cleanup SIGINT SIGTERM EXIT
+
+echo "Initializing Temporal Workers (General Purpose & Max AI)..."
+
+# Worker 1: General purpose task queue
+python3 manage.py start_temporal_worker "$@" --metrics-port 8001 &
+worker1_pid=$!
+
+# Worker 2: Max AI task queue
+python3 manage.py start_temporal_worker --task-queue max-ai-task-queue --metrics-port 8002 &
+worker2_pid=$!
+
+echo "Both workers started (PID1: $worker1_pid, PID2: $worker2_pid)"
+
+# Wait for any worker to exit
+wait -n $worker1_pid $worker2_pid
+exit_code=$?
+echo "A worker exited with code $exit_code"
+exit $exit_code

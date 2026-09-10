@@ -1,0 +1,208 @@
+/* ==========================================================================
+   PostHog i18n Stylesheet - Hệ thống giao diện Đa ngôn ngữ chuẩn PostHog
+   ========================================================================== */
+
+/* Floating Switcher */
+#posthog-i18n-switcher {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999999;
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+    user-select: none;
+}
+
+.ph-i18n-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #ffffff;
+    color: #1d1f24;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-boot-theme="dark"] .ph-i18n-btn,
+[data-theme="dark"] .ph-i18n-btn {
+    background: #1e2026;
+    color: #f3f4f6;
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.ph-i18n-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+    border-color: #f54e00;
+}
+
+.ph-i18n-menu {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    min-width: 190px;
+    padding: 4px;
+}
+
+[data-boot-theme="dark"] .ph-i18n-menu,
+[data-theme="dark"] .ph-i18n-menu {
+    background: #1e2026;
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.ph-i18n-menu.active {
+    display: block;
+    animation: phFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes phFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ph-i18n-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    text-align: left;
+    font-size: 13px;
+    cursor: pointer;
+    color: inherit;
+    transition: background 0.15s ease;
+}
+
+.ph-i18n-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+[data-boot-theme="dark"] .ph-i18n-item:hover,
+[data-theme="dark"] .ph-i18n-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.ph-i18n-item.selected {
+    font-weight: 700;
+    color: #f54e00;
+}
+
+/* Sidebar Navbar Switcher */
+#posthog-i18n-nav-item {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    color: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background 0.15s;
+    user-select: none;
+}
+
+#posthog-i18n-nav-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+[data-boot-theme="dark"] #posthog-i18n-nav-item:hover,
+[data-theme="dark"] #posthog-i18n-nav-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Settings Card Integration */
+#posthog-i18n-settings-card {
+    position: relative;
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border, rgba(128, 128, 128, 0.2));
+    background: var(--bg-surface-primary, #ffffff);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    user-select: none;
+}
+
+[data-boot-theme="dark"] #posthog-i18n-settings-card,
+[data-theme="dark"] #posthog-i18n-settings-card {
+    background: var(--bg-surface-primary, #1e2026);
+    border-color: var(--border, rgba(255, 255, 255, 0.15));
+}
+
+#posthog-i18n-settings-select {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    background: var(--bg-surface-primary, #ffffff);
+    color: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+[data-boot-theme="dark"] #posthog-i18n-settings-select,
+[data-theme="dark"] #posthog-i18n-settings-select {
+    background: #1e2026;
+    color: #f3f4f6;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+#posthog-i18n-settings-select:focus {
+    border-color: #f54e00;
+}
+
+/* Sidebar collapsed state responsiveness */
+.items-center #posthog-i18n-nav-item,
+[class*="items-center"] #posthog-i18n-nav-item,
+[class*="collapsed"] #posthog-i18n-nav-item {
+    justify-content: center;
+    padding: 6px;
+    width: 36px;
+    margin: 0 auto;
+}
+
+.items-center #posthog-i18n-nav-item #ph-nav-lang-label,
+[class*="items-center"] #posthog-i18n-nav-item #ph-nav-lang-label,
+[class*="collapsed"] #posthog-i18n-nav-item #ph-nav-lang-label {
+    display: none !important;
+}
+
+
+/* Ẩn hoàn toàn tính năng đăng ký tài khoản */
+[data-attr="signup"],
+p:has([data-attr="signup"]),
+a[href*="/signup"],
+a[href*="signup"],
+.signup-link,
+[data-attr="signup-email"],
+[data-attr="signup-submit"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
