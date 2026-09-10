@@ -44,15 +44,39 @@ from posthog.llm.wizard_gateway_token import (
 from posthog.models import Team, User
 from posthog.models.project import Project
 from posthog.permissions import APIScopePermission
+import hashlib
+from django.conf import settings
+from rest_framework.throttling import SimpleRateThrottle, UserRateThrottle
 from posthog.rate_limit import (
-    SetupWizardAuthenticationRateThrottle,
     SetupWizardCloudRunBurstRateThrottle,
     SetupWizardCloudRunSustainedRateThrottle,
     SetupWizardGatewayTokenRateThrottle,
-    SetupWizardQueryRateThrottle,
     refund_wizard_mint,
     reserve_wizard_mint,
 )
+
+try:
+    from posthog.rate_limit import (
+        SetupWizardAuthenticationRateThrottle,
+        SetupWizardQueryRateThrottle,
+    )
+except ImportError:
+    class SetupWizardAuthenticationRateThrottle(UserRateThrottle):
+        scope = "wizard_authentication"
+        rate = "20/day"
+
+    class SetupWizardQueryRateThrottle(SimpleRateThrottle):
+        def get_rate(self):
+            if settings.DEBUG:
+                return "1000/day"
+            return "20/day"
+
+        def get_cache_key(self, request, view):
+            h = request.headers.get("X-PostHog-Wizard-Hash")
+            auth = request.headers.get("Authorization")
+            val = (h or auth or "").strip() or self.get_ident(request)
+            return hashlib.sha256(val.encode()).hexdigest()
+
 from posthog.storage.gateway_credential_cache import (
     GATEWAY_CREDENTIAL_REQUIRED_SCOPE as RequiredGatewayScope,
     oauth_credential_authorized,
