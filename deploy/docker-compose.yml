@@ -92,6 +92,7 @@ services:
             - ./compose:/compose
             - ./patches/completions.py:/code/posthog/llm/completions.py:ro
             - ./patches/wizard_http.py:/code/posthog/api/wizard/http.py:ro
+            - ./patches/wizard_utils.py:/code/posthog/api/wizard/utils.py:ro
             - ./patches/session_recordings_openai_client.py:/code/posthog/session_recordings/openai_client.py:ro
             - ./patches/llm_endpoint.py:/code/posthog/temporal/ai_observability/llm_endpoint.py:ro
             - ./patches/hogai_llm.py:/code/ee/hogai/llm.py:ro
@@ -175,6 +176,7 @@ services:
             - ./i18n/locales:/code/staticfiles/locales:ro
             - ./patches/completions.py:/code/posthog/llm/completions.py:ro
             - ./patches/wizard_http.py:/code/posthog/api/wizard/http.py:ro
+            - ./patches/wizard_utils.py:/code/posthog/api/wizard/utils.py:ro
             - ./patches/session_recordings_openai_client.py:/code/posthog/session_recordings/openai_client.py:ro
             - ./patches/llm_endpoint.py:/code/posthog/temporal/ai_observability/llm_endpoint.py:ro
             - ./patches/hogai_llm.py:/code/ee/hogai/llm.py:ro
@@ -518,6 +520,7 @@ services:
             - ./compose:/compose
             - ./patches/completions.py:/code/posthog/llm/completions.py:ro
             - ./patches/wizard_http.py:/code/posthog/api/wizard/http.py:ro
+            - ./patches/wizard_utils.py:/code/posthog/api/wizard/utils.py:ro
             - ./patches/session_recordings_openai_client.py:/code/posthog/session_recordings/openai_client.py:ro
             - ./patches/llm_endpoint.py:/code/posthog/temporal/ai_observability/llm_endpoint.py:ro
             - ./patches/hogai_llm.py:/code/ee/hogai/llm.py:ro
